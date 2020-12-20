@@ -13,6 +13,18 @@ def get_marks(start, end, step, norm=None):
             marks[i] = str(i)
     return marks
 
+mdl_div = html.Div([
+    html.H5('Model:'),
+    dcc.Slider(
+        id='mdl-slider',
+        min=5,
+        max=50,
+        step=None,
+        value=50,
+        marks={ 5 : "5", 10 : "10", 25 : "25", 50 : "50" }
+    )
+])
+
 sex_div = html.Div([
     html.H5('Gender:'),
     dcc.RadioItems(
