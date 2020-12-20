@@ -51,36 +51,19 @@ app.layout = html.Div([
 
 @app.callback(
     dash.dependencies.Output('prediction', 'children'),
-    [
-        dash.dependencies.Input('mdl-slider', 'value'),
-        dash.dependencies.Input('sex-radio' , 'value'),
-        dash.dependencies.Input('rsg-input' , 'value'),
-        dash.dependencies.Input('rer-slider', 'value'),
-        dash.dependencies.Input('ren-slider', 'value'),
-        dash.dependencies.Input('qnt-slider', 'value'),
-        dash.dependencies.Input('gsv-input' , 'value'),
-        dash.dependencies.Input('fic-slider', 'value'),
-    ]
+    dash.dependencies.Output('dial', 'children'),    
+    dash.dependencies.Input('mdl-slider', 'value'),
+    dash.dependencies.Input('sex-radio' , 'value'),
+    dash.dependencies.Input('rsg-input' , 'value'),
+    dash.dependencies.Input('rer-slider', 'value'),
+    dash.dependencies.Input('ren-slider', 'value'),
+    dash.dependencies.Input('qnt-slider', 'value'),
+    dash.dependencies.Input('gsv-input' , 'value'),
+    dash.dependencies.Input('fic-slider', 'value')
 )
 def update_prediction(mdl, sex, rsg, rer, ren, qnt, gsv, fic):
-    return rfm[mdl].predict(sex, rsg, rer, ren, qnt, gsv, fic)
-
-@app.callback(
-    dash.dependencies.Output('dial', 'children'),
-    [
-        dash.dependencies.Input('mdl-slider', 'value'),
-        dash.dependencies.Input('sex-radio' , 'value'),
-        dash.dependencies.Input('rsg-input' , 'value'),
-        dash.dependencies.Input('rer-slider', 'value'),
-        dash.dependencies.Input('ren-slider', 'value'),
-        dash.dependencies.Input('qnt-slider', 'value'),
-        dash.dependencies.Input('gsv-input' , 'value'),
-        dash.dependencies.Input('fic-slider', 'value'),
-    ]
-)
-def update_dial(mdl, sex, rsg, rer, ren, qnt, gsv, fic):
     prediction = rfm[mdl].predict(sex, rsg, rer, ren, qnt, gsv, fic)
-    return dcc.Graph(figure=dial.create_dial(prediction))
+    return prediction, dcc.Graph(figure=dial.create_dial(prediction))
 
 if __name__ == '__main__':
     app.run_server(debug=True)
