@@ -8,6 +8,7 @@ import dash
 
 model = joblib.load("pretrained_models/HLT_WOP_50_RF.joblib")
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
+server = app.server
 
 app.layout = html.Div(
     [
