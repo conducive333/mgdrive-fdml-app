@@ -54,39 +54,28 @@ meter_chart = {
     "hoverinfo": "none",
 }
 
-def rotate_coord(coord, degrees):
-    radians = np.radians([degrees])[0]
-    return np.array([
-        [np.cos(radians), -np.sin(radians)],
-        [np.sin(radians),  np.cos(radians)]
+def rotate_coord(coord, degrees, origin=(0.45, 0.5)):
+    radns = np.radians([degrees])[0]
+    coord = coord - np.array(origin)
+    coord = np.array([
+        [np.cos(radns), -np.sin(radns)],
+        [np.sin(radns),  np.cos(radns)]
     ]) @ np.array(coord)
+    coord = coord + np.array(origin)
+    return coord
 
-def rotate_coords(coords, degrees, origin=(0.45, 0.5)):
-    points = []
-    origin = np.array(origin)
-    for coord in map(np.array, coords):
-        coord = coord - origin
-        coord = rotate_coord(coord, degrees)
-        coord = coord + origin
-        points.append(tuple(coord))
-    return points
-
-def create_path(coords):
-    path = "M 0.445 0.5 L {} L 0.455 0.5 Z"
-    coords = [" ".join(map(str, c)) for c in coords]
-    return path.format(coords[1])
-
-def get_path(prediction):
-    mid_coords = [(0.445, 0.5), (0.45, 0.65), (0.455, 0.5)]
+def get_path(prediction, center=(0.45, 0.65)):
+    # For simplicity, we only move the topmost point of the triangle 
+    svg_path = lambda coord: "M 0.445 0.5 L {} {} L 0.455 0.5 Z".format(*coord)
     if prediction == "LOW":
-        return create_path(rotate_coords(mid_coords, 25))
+        return svg_path(rotate_coord(center, 25))
     if prediction == "MID":
-        return create_path(rotate_coords(mid_coords, 0))
+        return svg_path(rotate_coord(center, 0))
     if prediction == "HIGH":
-        return create_path(rotate_coords(mid_coords, -25))
+        return svg_path(rotate_coord(center, -25))
     if prediction == "PERMANENT":
-        return create_path(rotate_coords(mid_coords, -90))
-    return create_path(rotate_coords(mid_coords, 90))
+        return svg_path(rotate_coord(center, -90))
+    return svg_path(rotate_coord(center, 90))
 
 def point_to(prediction):
     return {

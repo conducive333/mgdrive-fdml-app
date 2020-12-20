@@ -93,19 +93,6 @@ qnt_div = html.Div([
     )
 ])
 
-# inp_div = html.Div([
-#     html.H5('Inputs:'),
-#     html.Div([
-#         html.P(id='sex'),
-#         html.P(id='gsv'),
-#         html.P(id='rsg'),
-#         html.P(id='rer'),
-#         html.P(id='fic'),
-#         html.P(id='ren'),
-#         html.P(id='qnt')
-#     ])
-# ])
-
 prd_div = html.Div([
     html.H5('Prediction:'),
     html.Div(id='prediction')
