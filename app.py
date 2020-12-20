@@ -6,14 +6,17 @@ import joblib
 import model
 import dial
 import dash
+import os
+import re
+
+MODELS = 'pretrained_models'
+def get_kv_pair(model_name):
+    key = int(re.search(r'[0-9]+', model_name)[0])
+    val = model.Model(os.path.join(MODELS, model_name))
+    return key, val
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP])
-rfm = {
-    5  : model.Model("pretrained_models/HLT_WOP_05_RF.joblib"),
-    10 : model.Model("pretrained_models/HLT_WOP_10_RF.joblib"),
-    25 : model.Model("pretrained_models/HLT_WOP_25_RF.joblib"),
-    50 : model.Model("pretrained_models/HLT_WOP_50_RF.joblib")
-}
+rfm = dict(get_kv_pair(model_name) for model_name in os.listdir(MODELS))
 
 # DO NOT DELETE THIS - this is required for Heroku deployment to succeed
 server = app.server
@@ -24,7 +27,7 @@ app.layout = html.Div([
     dbc.Row([
         dbc.Col(
             dbc.Container([
-                layouts.mdl_div,
+                layouts.mdl_div(rfm.keys()),
                 layouts.rer_div,
                 layouts.fic_div,
                 layouts.ren_div,

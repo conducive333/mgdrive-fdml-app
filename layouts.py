@@ -13,17 +13,21 @@ def get_marks(start, end, step, norm=None):
             marks[i] = str(i)
     return marks
 
-mdl_div = html.Div([
-    html.H5('Model:'),
-    dcc.Slider(
-        id='mdl-slider',
-        min=5,
-        max=50,
-        step=None,
-        value=50,
-        marks={ 5 : "5", 10 : "10", 25 : "25", 50 : "50" }
-    )
-])
+def mdl_div(model_keys):
+    if len(model_keys) == 0: raise ValueError("Found 0 models to use!")
+    mink = min(model_keys)
+    maxk = max(model_keys)
+    return html.Div([
+        html.H5('Model:'),
+        dcc.Slider(
+            id='mdl-slider',
+            min=mink,
+            max=maxk,
+            step=None,
+            value=maxk,
+            marks={ k : str(k) for k in model_keys }
+        )
+    ])
 
 sex_div = html.Div([
     html.H5('Gender:'),
