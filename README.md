@@ -13,7 +13,7 @@
 
 3. Install [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
 
-4. Navigate to the app folder and initialize Heroku
+4. Navigate to `mgdrive-fdml-app` and initialize Heroku
 ```
   heroku create [app-name]
 ```
