@@ -13,7 +13,7 @@
 
 4. Initialize Heroku
 ```
-  heroku create
+  heroku create [app-name]
 ```
 
 5. Deploy to Heroku
