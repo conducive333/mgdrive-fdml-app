@@ -22,7 +22,7 @@
 ```
   git add .
   git commit -m "initial commit"
-  git push heroku master
+  git push heroku main
 ```
 
 6. To turn on the app, use
