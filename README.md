@@ -1,4 +1,4 @@
-# mgdrive-fdml-app
+# MGDrivE Factorial Dataset Machine Learning App
 
 ## How to deploy this app:
 
