@@ -1,5 +1,7 @@
 # MGDrivE Factorial Dataset Machine Learning App
 
+![image](https://user-images.githubusercontent.com/45245420/102834902-1c1b8900-43aa-11eb-867e-9f7c93e73de3.png)
+
 ## How to deploy this app:
 
 1. Clone this repository
